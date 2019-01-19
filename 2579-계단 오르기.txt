@@ -1,0 +1,26 @@
+#include<iostream>
+#include<algorithm>
+using namespace std;
+
+long long int wine[310];
+long long int addingWine[310][2] = { 0 };
+
+int main() {
+	cin.tie(NULL);
+	cin.sync_with_stdio(false);
+	cout.sync_with_stdio(false);
+
+	int n, size;
+	cin >> n;
+	for (int i = 1; i <= n; i++) {
+		cin >> size;
+		wine[i] = size;
+	}
+	addingWine[1][0] = addingWine[1][1] = wine[1];
+	for (int i = 2; i <= n; i++) {
+		addingWine[i][0] = addingWine[i - 1][1] + wine[i];
+		addingWine[i][1] = max(addingWine[i - 2][0], addingWine[i - 2][1]) + wine[i];
+	}
+	cout << max(addingWine[n][0], addingWine[n][1]) << "\n";
+	return 0;
+}
